@@ -36,7 +36,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public GameObject nameInputScreen;
     public TMP_InputField nameInput;
-    private bool hasSetNick;
+    public static bool hasSetNick;
 
     public string levelToPlay;
 
@@ -63,6 +63,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     roomTestButton.SetActive(true);
 #endif
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public override void OnConnectedToMaster()

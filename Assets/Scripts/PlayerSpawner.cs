@@ -36,6 +36,7 @@ public class PlayerSpawner : MonoBehaviour
     public IEnumerator DieCo(string damager){
         PhotonNetwork.Instantiate(deathEffect.name, player.transform.position, Quaternion.identity);
         PhotonNetwork.Destroy(player);
+        player = null;
 
         UIController.instance.deathText.text = "You were killed by " + damager;
         UIController.instance.deathScreen.SetActive(true);
@@ -44,7 +45,11 @@ public class PlayerSpawner : MonoBehaviour
         yield return new WaitForSeconds(respawnTime);
 
         UIController.instance.deathScreen.SetActive(false);
-        SpawnPlayer();
+        
+        if (MatchManager.instance.state == MatchManager.GameState.Playing && player == null)
+        {
+            SpawnPlayer();
+        }
     }
 
     public void SpawnPlayer()
